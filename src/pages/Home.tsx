@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   
-  const personalStatement = "扎实的专业技能基础，系统掌握化妆技艺核心技法，能精准驾驭不同风格妆容设计与发型造型，注重妆容质感（如层次化通透感、色彩层次感）与发型结构完整性，对肤质适配、脸型修饰等细节把控专业，实践经验覆盖多人次化妆服务场景。";
+  const personalStatement = "专业化妆师 | 精准驾驭多元风格妆容设计与发型造型技法，能精准驾驭不同风格妆容设计与发型造型，注重妆容质感（如层次化通透感、色彩层次感）与发型结构完整性，对肤质适配、脸型修饰等细节把控专业，实践经验覆盖多人次化妆服务场景。";
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 z-10 relative">
