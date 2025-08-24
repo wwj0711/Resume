@@ -8,13 +8,13 @@ import { useRef } from 'react';
 // Navigation component
 const Navbar = () => {
   const sections = [
-    { id: 'about', label: '���˼��' },
-    { id: 'skills', label: '����ջ' },
-    { id: 'education', label: '��������' },
-    { id: 'experience', label: '��������' },
-    { id: 'projects', label: '������Ŀ' },
-    { id: 'portfolio', label: '��Ʒչʾ' },
-    { id: 'interests', label: '��Ȥ����' }
+    { id: 'about', label: '个人简介' },
+    { id: 'skills', label: '技能栈' },
+    { id: 'education', label: '教育背景' },
+    { id: 'experience', label: '工作经历' },
+    { id: 'projects', label: '个人项目' },
+    { id: 'portfolio', label: '作品展示' },
+    { id: 'interests', label: '兴趣爱好' }
   ];
 
   const scrollToSection = (id) => {
@@ -168,19 +168,19 @@ const ProjectCard = ({ project }) => {
 
 // Main Resume component
 export default function Resume() {
-  // ���ģ̬��״̬����
+  // 相册模态框状态管理
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [showAlbums, setShowAlbums] = useState(true);
   
-  // ������Ἧ����¼�
+  // 处理相册集点击事件
   const handleAlbumClick = (album) => {
     setSelectedAlbum(album);
     setShowAlbums(false);
   };
   
-  // ������Ἧ�б�
+  // 返回相册集列表
   const handleBackToAlbums = () => {
     setSelectedAlbum(null);
     setShowAlbums(true);
@@ -188,140 +188,140 @@ export default function Resume() {
     setSelectedImage(null);
   };
   
-  // ����ͼƬ����¼�
+  // 处理图片点击事件
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setIsModalOpen(true);
-    // ��ֹ��������
+    // 防止背景滚动
     document.body.style.overflow = 'hidden';
   };
   
-  // �ر�ģ̬��
+  // 关闭模态框
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
-    // �ָ���������
+    // 恢复背景滚动
     document.body.style.overflow = 'auto';
   };
   
   // Personal information data
   
   const personalInfo = {
-    name: "�ܼ�ԥ",
-    title: "��ױʦ",
+    name: "周佳豫",
+    title: "化妆师",
     email: "example@example.com",
     phone: "13541313431",
-    location: "�Ĵ�ʡ�ɶ��гɻ���",
-    statement: "��ʵ��רҵ���ܻ�����ϵͳ���ջ�ױ���պ��ļ������ܾ�׼��Ԧ��ͬ���ױ������뷢�����ͣ�ע��ױ���ʸУ����λ�ͨ͸��\ɫ�ʲ�θУ��뷢�ͽṹ������\�Է�������\�������ε�ϸ�ڰѿ�רҵ\ʵ�����鸲�Ƕ��˴λ�ױ���񳡾�",
+    location: "四川省成都市成华区",
+    statement: "扎实的专业技能基础，系统掌握化妆技艺核心技法，能精准驾驭不同风格妆容设计与发型造型，注重妆容质感（如层次化通透感\色彩层次感）与发型结构完整性\对肤质适配\脸型修饰等细节把控专业\实践经验覆盖多人次化妆服务场景",
     skills: [
-      { name: "רҵ��ױ����", level:5 },
-      { name: "�������", level:4 },
-      { name: "ɫ�ʴ���", level:5 },
-      { name: "���ʷ���", level:4 },
-      { name: "�ŵ�ױ��", level:4 },
-      { name: "�ִ�ʱ��ױ", level:5 },
-      { name: "����ױ", level:4 },
-      { name: "��Чױ", level:3 }
+      { name: "专业化妆技法", level:5 },
+      { name: "发型设计", level:4 },
+      { name: "色彩搭配", level:5 },
+      { name: "肤质分析", level:4 },
+      { name: "古典妆容", level:4 },
+      { name: "现代时尚妆", level:5 },
+      { name: "新娘妆", level:4 },
+      { name: "特效妆", level:3 }
     ],
-    interests: [{"name":"ʱ�г���","icon":"star"},{"name":"�ŵ��Ļ�","icon":"book"},{"name":"��Ӱ","icon":"camera"}],
-    education: [{"school":"�����黯ױ��ѵѧУ","major":"��ױ","degree":"רҵ","period":"2025/6/5 - \n2025/9/26"}],
+    interests: [{"name":"时尚潮流","icon":"star"},{"name":"古典文化","icon":"book"},{"name":"摄影","icon":"camera"}],
+    education: [{"school":"黑珍珠化妆培训学校","major":"美妆","degree":"专业","period":"2025/6/5 - \n2025/9/26"}],
     experience: [
       {
-        company: "����ױ�����",
-        position: "��ױʦ",
+        company: "户外妆容设计",
+        position: "化妆师",
         period: "2025.07 - 2023.08",
-        logo: "��",
+        logo: "户",
         description: [
-          "��Ի����Ԫ������ɭ��/����/��ƺ��������Ӧ��ױ�ݷ����������Ȼ�����뻷����������",
-          "���ĳɹ�������'����-����-����'��ά����ģ�ͣ�ɭ�ֳ�������'�����ױ+ݮ��ϵ'��ɫ��ͨ͸��ױУɫ����ֲ�ﾫ����ױ�������մ��ɫ������������",
-          "���߳����ص��Ż���ˮ�����䷽����ˮ��ױ+΢���۱���ױ; ΢��͸�и���˪�ֿ�ǿ������; ����������Ӱ����������Ȼ���Ρ�"
+          "针对户外多元场景（森林/海岛/草坪）开发适应性妆容方案，解决自然光线与环境干扰问题",
+          "核心成果：建立'场景-光线-肤质'三维适配模型：森林场景采用'雾面底妆+莓果系'配色，通透持妆校色叠加植物精油锁妆术，吸收大地色渐变打造立体感",
+          "海边场景重点优化防水抗汗配方，用水防妆+微珠光粉饼定妆; 微光透感隔离霜抵抗强紫外线; 海浪蓝调眼影渐变塑造自然红晕。"
         ] 
       },
       {
-        company: "��ڸ��ط�����", 
-        position: "��ױʦ",
+        company: "红黑哥特风格设计", 
+        position: "化妆师",
         period: "2025.07 - 2025.08",
-        logo: "��", 
+        logo: "红", 
         description: [
-          "������ڸ��ط�ϵ��ױ�ݴ��������ִ�У��۽���׼��ѧ��Ϸ����������",
-          "����ھ�ŵ�����Ļ��������ִ��������ں��ص㣬��'Ѫɫ����'Ϊ���ĸ����Ʊ�־���ɺ콥�䴽ױȫ���̡�"
+          "主导红黑哥特风系列妆容创意设计与执行，聚焦精准美学与戏剧张力表达",
+          "深度挖掘古典哥特文化符号与现代潮流新融合特点，以'血色浪漫'为核心概念，设计标志性猩红渐变唇妆全过程。"
         ]
       },
       {
-        company: "����ױ�����",
-        position: "��ױʦ",
+        company: "新娘妆容设计",
+        position: "化妆师",
         period: "2025.06 - 2025.07",
-        logo: "��",
+        logo: "新",
         description: [
-          "�����������ʡ��������⡢���η���ṩ'ױ��+����+��Ʒ'һ�廯���Ʒ���",
-          "ǰ����ȹ�ͨ��ͨ��'��ǰ��̸+���շ���'��ά���沿��ϣ�ȷ������С�����ƻ����)",
-          "ױ��ϸ�ڰѿأ���ױ����'΢ʪ�۵�+�ᱡ�۷�+�ֲ����'����ͨ͸ԭ����", 
-          "ױ��ָ��ϸ�ڣ���ױ����'��������+��������'�ֲ�ǿ�������鶯���У����������ƽ����Σ���β�����ù���ɫ����)"
+          "基于新娘气质、婚礼主题、服饰风格提供'妆容+发型+饰品'一体化定制方案",
+          "前期深度沟通：通过'婚前访谈+素颜分析'多维度面部诊断（确立立体感、饱满苹果肌)",
+          "妆容细节把控：底妆采用'微湿粉底+轻薄蜜粉+局部遮瑕'打造通透原生感", 
+          "妆面指定细节：眼妆采用'深邃眼眸+飞扬眼线'局部强调打造灵动美感，根据礼服设计渐变层次（眼尾泡眼用光大地色消肿)"
         ]
       }
     ],
     projects: [
       {
-        name: "�����黯ױ��ѵѧУ��Ŀ", 
-        type: "��ױ",
-        description: "ͳ��Э�������ϻ��Ч�ƽ���ǰ����ȷ���������", 
-        technologies: ["��߻�", "��ױ��ѧ", "�������"],
+        name: "黑珍珠化妆培训学校项目", 
+        type: "美妆",
+        description: "统筹协调：保障活动高效推进，前期明确活动核心需求", 
+        technologies: ["活动策划", "化妆教学", "造型设计"],
         imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=makeup+artist+workspace+with+cosmetics+and+tools&sign=67219936f710fd5e9e3350b78c006914"
       }
     ],
     portfolioAlbums: [
       {
         id: 1,
-        title: "����-ױ��ϵ��",
+        title: "新娘妆容系列",
         coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=bridal+makeup+elegant+look&sign=51682d943e37120d2e340894ce3c3bd6",
         images: [
           {
             id: 1,
-            title: "����ױ�����",
+            title: "新娘妆容设计",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=bridal+makeup+elegant+look&sign=51682d943e37120d2e340894ce3c3bd6"
           },
           {
             id: 2,
-            title: "��������ױ��",
+            title: "婚礼晚宴妆容",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=wedding+dinner+makeup+glamorous&sign=f4f84bcaa81a231ce9ce9cd04c0a5ed6"
           }
         ]
       },
       {
         id: 2,
-        title: "ʱ�з��ϵ��",
+        title: "时尚风格系列",
         coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=fashion+magazine+makeup+editorial&sign=8db5d4410e95c3ccac313f2468eee9b4",
         images: [
           {
             id: 3,
-            title: "���ط��ױ��",
+            title: "哥特风格妆容",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=gothic+makeup+dark+romantic&sign=cd93ae6d89b596b839b5d8a967e5e01c"
           },
           {
             id: 4,
-            title: "ʱ����־ױ��",
+            title: "时尚杂志妆容",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=fashion+magazine+makeup+editorial&sign=8db5d4410e95c3ccac313f2468eee9b4"
           }
         ]
       },
       {
         id: 3,
-        title: "�ճ�ױ��ϵ��",
+        title: "日常妆容系列",
         coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=natural+everyday+makeup&sign=4c8b226f84dfc65a3e01c1ee6ddbb3b8",
         images: [
           {
             id: 5,
-            title: "��Ȼ�ճ�ױ",
+            title: "自然日常妆",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=natural+everyday+makeup&sign=4c8b226f84dfc65a3e01c1ee6ddbb3b8"
           },
           {
             id: 6,
-            title: "����д��ױ��",
+            title: "户外写真妆容",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=outdoor+portrait+makeup+natural+light&sign=8955014a9750e98a426bc63dbcb8ca03"
           },
           {
             id: 7,
-            title: "��̨��Чױ",
+            title: "舞台特效妆",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=stage+special+effects+makeup&sign=4be391750779d121bdac26ce7bc5b3c9"
           }
         ]
@@ -336,7 +336,7 @@ export default function Resume() {
            <div className="flex items-center justify-center gap-4">
              <img 
                src="https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/1756025753_hd_20250824220457.png" 
-               alt="�ܼ�ԥͷ��" 
+               alt="周佳豫头像" 
                className="w-20 h-20 rounded-full border-2 border-blue-500 shadow-lg object-cover"
              />
              <motion.h1
@@ -390,7 +390,7 @@ export default function Resume() {
           <div className="lg:col-span-1 space-y-8">
             {/* About section */}
             <div id="about">
-              <SectionCard title="���˼��">
+              <SectionCard title="个人简介">
                 <p className="text-gray-300 leading-relaxed">
                   {personalInfo.statement}
                 </p>
@@ -399,7 +399,7 @@ export default function Resume() {
             
             {/* Skills section */}
             <div id="skills">
-               <SectionCard title="����ջ">
+               <SectionCard title="技能栈">
                 <div className="h-80 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={personalInfo.skills}>
@@ -418,7 +418,7 @@ export default function Resume() {
                         axisLine={false}
                       />
                       <Radar
-                        name="����ˮƽ"
+                        name="技能水平"
                         dataKey="level"
                         stroke="#6366f1"
                         fill="#6366f1"
@@ -433,7 +433,7 @@ export default function Resume() {
             
             {/* Interests section */}
             <div id="interests">
-              <SectionCard title="��Ȥ����">
+              <SectionCard title="兴趣爱好">
                 <div className="grid grid-cols-1 gap-4">
                   {personalInfo.interests.map((interest, index) => (
                     <div key={index} className="flex items-center">
@@ -452,7 +452,7 @@ export default function Resume() {
           <div className="lg:col-span-2 space-y-8">
             {/* Education section */}
             <div id="education">
-              <SectionCard title="��������">
+              <SectionCard title="教育背景">
                 <div className="bg-gray-800/50 rounded-lg p-5 border border-gray-700">
                   <h3 className="text-xl font-semibold text-white mb-1">{personalInfo.education[0].school}</h3>
                   <p className="text-gray-300 mb-1">{personalInfo.education[0].major} ({personalInfo.education[0].degree})</p>
@@ -463,7 +463,7 @@ export default function Resume() {
             
             {/* Experience section */}
             <div id="experience">
-              <SectionCard title="��������">
+              <SectionCard title="工作经历">
                 <div className="space-y-4">
                   {personalInfo.experience.map((exp, index) => (
                     <WorkExperience key={index} experience={exp} />
@@ -474,7 +474,7 @@ export default function Resume() {
             
             {/* Projects section */}
             <div id="projects">
-              <SectionCard title="������Ŀ">
+              <SectionCard title="个人项目">
                 <div className="space-y-4">
                    {personalInfo.projects.map((project, index) => (
                     <ProjectCard key={index} project={project} />
@@ -484,14 +484,14 @@ export default function Resume() {
                      {/* Portfolio with albums */}
                      <div className="mt-8">
                        <div className="flex items-center justify-between mb-6">
-                         <h3 className="text-2xl font-semibold text-white">��Ʒչʾ</h3>
+                         <h3 className="text-2xl font-semibold text-white">作品展示</h3>
                          {!showAlbums && (
                            <button 
                              onClick={handleBackToAlbums}
                              className="flex items-center text-blue-400 hover:text-blue-300 transition-colors"
                            >
                              <i className="fa-solid fa-arrow-left mr-2"></i>
-                             <span>������Ἧ</span>
+                             <span>返回相册集</span>
                            </button>
                          )}
                        </div>
@@ -518,10 +518,10 @@ export default function Resume() {
                                 </div>
                                <div className="absolute bottom-0 left-0 p-6 w-full">
                                  <h4 className="text-2xl font-bold text-white mb-2">{album.title}</h4>
-                                 <p className="text-gray-300 mb-4">{album.images.length} ����Ʒ</p>
+                                 <p className="text-gray-300 mb-4">{album.images.length} 个作品</p>
                                  <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                                    <div className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center">
-                                     <span>�鿴��Ʒ</span>
+                                     <span>查看作品</span>
                                      <i className="fa-solid fa-arrow-right ml-2"></i>
                                    </div>
                                  </div>
@@ -549,7 +549,7 @@ export default function Resume() {
                                    <div className="p-4 w-full">
                                      <h3 className="text-white font-medium">{item.title}</h3>
                                      <div className="mt-1 text-xs text-gray-300 flex items-center">
-                                       <i className="fa-solid fa-search-plus mr-1"></i> ����鿴��ͼ
+                                       <i className="fa-solid fa-search-plus mr-1"></i> 点击查看大图
                                      </div>
                                    </div>
                                  </div>
@@ -603,7 +603,7 @@ export default function Resume() {
       
       {/* Footer */}
       <footer className="py-8 bg-gray-900/60 backdrop-blur-md border-t border-gray-800 mt-16">
-        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">? {new Date().getFullYear()} {personalInfo.name} - ǰ�˿�������ʦ����</div>
+        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">© {new Date().getFullYear()} {personalInfo.name} - 前端开发工程师简历</div>
       </footer>
     </div>
   );

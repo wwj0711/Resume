@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   
-  const personalStatement = "רҵ�-�ױʦ | ��׼��Ԧ��Ԫ���ױ������뷢������";
+  const personalStatement = "专业化妆师 | 精准驾驭多元风格妆容设计与发型造型";
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 z-10 relative">
@@ -118,7 +118,7 @@ export default function Home() {
         className="absolute bottom-12 flex flex-col items-center cursor-pointer group relative z-10"
         onClick={() => navigate('/resume')}
       >
-        <span className="text-gray-200 mb-2 text-lg font-medium">�������</span>
+        <span className="text-gray-200 mb-2 text-lg font-medium">进入简历</span>
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
