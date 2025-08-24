@@ -10,6 +10,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/resume" element={<Resume />} />
+        {/* 404Ò³ÃæÂ·ÓÉ */}
+        <Route path="*" element={<Home />} />
       </Routes>
     </div>
   );
