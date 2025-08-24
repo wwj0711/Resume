@@ -6,8 +6,8 @@
   "scripts": {
     "dev:client": "vite --host --port 3000",
     "dev": "pnpm dev:client",
-    "build:client": "vite build --outDir dist/static",
-    "build": "rm -rf dist && pnpm build:client && cp package.json dist && touch dist/build.flag"
+   "build:client": "vite build --outDir dist",
+    "build": "echo [1/8] Starting build process at %time%... && if exist dist (echo [2/8] Removing existing dist directory... && rmdir /s /q dist && if errorlevel 1 (echo Error: Failed to remove dist directory && exit /b 1)) else (echo [2/8] No existing dist directory to remove) && echo [3/8] Building client assets... && pnpm build:client && if errorlevel 1 (echo Error: pnpm build:client failed && exit /b 1) && if not exist dist (echo [4/8] Creating dist directory... && mkdir dist) else (echo [4/8] dist directory already exists) && if exist public\\_redirects (echo [5/8] Copying redirects file... && copy public\\_redirects dist\\) else (echo Error: public\\_redirects not found && exit /b 1) && if exist package.json (echo [6/8] Copying package.json... && copy package.json dist\\) else (echo Error: package.json not found && exit /b 1) && echo [7/8] Creating build flag... && type nul > dist\\build.flag && echo [8/8] Build completed successfully at %time%!"
   },
   "dependencies": {
     "clsx": "^2.1.1",
