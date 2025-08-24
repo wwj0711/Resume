@@ -282,7 +282,7 @@ export default function Resume() {
           },
           {
             id: 2,
-            title: "»éÀñÍíÑç×±ÈİÏµÁĞ",
+            title: "»éÀñÍíÑç×±Èİ",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=wedding+dinner+makeup+glamorous&sign=f4f84bcaa81a231ce9ce9cd04c0a5ed6"
           }
         ]

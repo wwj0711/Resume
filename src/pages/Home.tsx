@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   
-  const personalStatement = "ä¸“ä¸šåŒ–å¦†å¸ˆ -|- ç²¾å‡†é©¾é©­å¤šå…ƒé£æ ¼å¦†å®¹è®¾è®¡ä¸å‘å‹é€ å‹";
+  const personalStatement = "×¨Òµ»¯×±Ê¦ | ¾«×¼¼İÔ¦¶àÔª·ç¸ñ×±ÈİÉè¼ÆÓë·¢ĞÍÔìĞÍ";
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 z-10 relative">
@@ -118,7 +118,7 @@ export default function Home() {
         className="absolute bottom-12 flex flex-col items-center cursor-pointer group relative z-10"
         onClick={() => navigate('/resume')}
       >
-        <span className="text-gray-200 mb-2 text-lg font-medium">è¿›å…¥ç®€å†</span>
+        <span className="text-gray-200 mb-2 text-lg font-medium">½øÈë¼òÀú</span>
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 1.5 }}
