@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   
-  const personalStatement = "专业化妆师 | 精准驾驭多元风格妆容设计与发型造型";
+  const personalStatement = "专业化妆师 -|- 精准驾驭多元风格妆容设计与发型造型";
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 z-10 relative">
