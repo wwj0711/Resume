@@ -8,13 +8,13 @@ import { useRef } from 'react';
 // Navigation component
 const Navbar = () => {
   const sections = [
-    { id: 'about', label: '¸öÈË¼ò½é' },
-    { id: 'skills', label: '¼¼ÄÜÕ»' },
-    { id: 'education', label: '½ÌÓý±³¾°' },
-    { id: 'experience', label: '¹¤×÷¾­Àú' },
-    { id: 'projects', label: '¸öÈËÏîÄ¿' },
-    { id: 'portfolio', label: '×÷Æ·Õ¹Ê¾' },
-    { id: 'interests', label: 'ÐËÈ¤°®ºÃ' }
+    { id: 'about', label: 'ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½' },
+    { id: 'skills', label: 'ï¿½ï¿½ï¿½ï¿½Õ»' },
+    { id: 'education', label: 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' },
+    { id: 'experience', label: 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' },
+    { id: 'projects', label: 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿' },
+    { id: 'portfolio', label: 'ï¿½ï¿½Æ·Õ¹Ê¾' },
+    { id: 'interests', label: 'ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½' }
   ];
 
   const scrollToSection = (id) => {
@@ -168,19 +168,19 @@ const ProjectCard = ({ project }) => {
 
 // Main Resume component
 export default function Resume() {
-  // Ïà²áÄ£Ì¬¿ò×´Ì¬¹ÜÀí
+  // ï¿½ï¿½ï¿½Ä£Ì¬ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [showAlbums, setShowAlbums] = useState(true);
   
-  // ´¦ÀíÏà²á¼¯µã»÷ÊÂ¼þ
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¼¯ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
   const handleAlbumClick = (album) => {
     setSelectedAlbum(album);
     setShowAlbums(false);
   };
   
-  // ·µ»ØÏà²á¼¯ÁÐ±í
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¼¯ï¿½Ð±ï¿½
   const handleBackToAlbums = () => {
     setSelectedAlbum(null);
     setShowAlbums(true);
@@ -188,140 +188,140 @@ export default function Resume() {
     setSelectedImage(null);
   };
   
-  // ´¦ÀíÍ¼Æ¬µã»÷ÊÂ¼þ
+  // ï¿½ï¿½ï¿½ï¿½Í¼Æ¬ï¿½ï¿½ï¿½ï¿½Â¼ï¿½
   const handleImageClick = (image) => {
     setSelectedImage(image);
     setIsModalOpen(true);
-    // ·ÀÖ¹±³¾°¹ö¶¯
+    // ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     document.body.style.overflow = 'hidden';
   };
   
-  // ¹Ø±ÕÄ£Ì¬¿ò
+  // ï¿½Ø±ï¿½Ä£Ì¬ï¿½ï¿½
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
-    // »Ö¸´±³¾°¹ö¶¯
+    // ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     document.body.style.overflow = 'auto';
   };
   
   // Personal information data
   
   const personalInfo = {
-    name: "ÖÜ¼ÑÔ¥",
-    title: "»¯×±Ê¦",
+    name: "ï¿½Ü¼ï¿½Ô¥",
+    title: "ï¿½ï¿½×±Ê¦",
     email: "example@example.com",
     phone: "13541313431",
-    location: "ËÄ´¨Ê¡³É¶¼ÊÐ³É»ªÇø",
-    statement: "ÔúÊµµÄ×¨Òµ¼¼ÄÜ»ù´¡£¬ÏµÍ³ÕÆÎÕ»¯×±¼¼ÒÕºËÐÄ¼¼·¨£¬ÄÜ¾«×¼¼ÝÔ¦²»Í¬·ç¸ñ×±ÈÝÉè¼ÆÓë·¢ÐÍÔìÐÍ£¬×¢ÖØ×±ÈÝÖÊ¸Ð£¨Èç²ã´Î»¯Í¨Í¸¸Ð\É«²Ê²ã´Î¸Ð£©Óë·¢ÐÍ½á¹¹ÍêÕûÐÔ\¶Ô·ôÖÊÊÊÅä\Á³ÐÍÐÞÊÎµÈÏ¸½Ú°Ñ¿Ø×¨Òµ\Êµ¼ù¾­Ñé¸²¸Ç¶àÈË´Î»¯×±·þÎñ³¡¾°",
+    location: "ï¿½Ä´ï¿½Ê¡ï¿½É¶ï¿½ï¿½Ð³É»ï¿½ï¿½ï¿½",
+    statement: "ï¿½ï¿½Êµï¿½ï¿½×¨Òµï¿½ï¿½ï¿½Ü»ï¿½ï¿½ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½Õ»ï¿½×±ï¿½ï¿½ï¿½Õºï¿½ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ü¾ï¿½×¼ï¿½ï¿½Ô¦ï¿½ï¿½Í¬ï¿½ï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë·¢ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½×¢ï¿½ï¿½×±ï¿½ï¿½ï¿½Ê¸Ð£ï¿½ï¿½ï¿½ï¿½Î»ï¿½Í¨Í¸ï¿½ï¿½\É«ï¿½Ê²ï¿½Î¸Ð£ï¿½ï¿½ë·¢ï¿½Í½á¹¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½Ô·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½Ï¸ï¿½Ú°Ñ¿ï¿½×¨Òµ\Êµï¿½ï¿½ï¿½ï¿½ï¿½é¸²ï¿½Ç¶ï¿½ï¿½Ë´Î»ï¿½×±ï¿½ï¿½ï¿½ñ³¡¾ï¿½",
     skills: [
-      { name: "×¨Òµ»¯×±¼¼·¨", level:5 },
-      { name: "·¢ÐÍÉè¼Æ", level:4 },
-      { name: "É«²Ê´îÅä", level:5 },
-      { name: "·ôÖÊ·ÖÎö", level:4 },
-      { name: "¹Åµä×±ÈÝ", level:4 },
-      { name: "ÏÖ´úÊ±ÉÐ×±", level:5 },
-      { name: "ÐÂÄï×±", level:4 },
-      { name: "ÌØÐ§×±", level:3 }
+      { name: "×¨Òµï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½", level:5 },
+      { name: "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", level:4 },
+      { name: "É«ï¿½Ê´ï¿½ï¿½ï¿½", level:5 },
+      { name: "ï¿½ï¿½ï¿½Ê·ï¿½ï¿½ï¿½", level:4 },
+      { name: "ï¿½Åµï¿½×±ï¿½ï¿½", level:4 },
+      { name: "ï¿½Ö´ï¿½Ê±ï¿½ï¿½×±", level:5 },
+      { name: "ï¿½ï¿½ï¿½ï¿½×±", level:4 },
+      { name: "ï¿½ï¿½Ð§×±", level:3 }
     ],
-    interests: [{"name":"Ê±ÉÐ³±Á÷","icon":"star"},{"name":"¹ÅµäÎÄ»¯","icon":"book"},{"name":"ÉãÓ°","icon":"camera"}],
-    education: [{"school":"ºÚÕäÖé»¯×±ÅàÑµÑ§Ð£","major":"ÃÀ×±","degree":"×¨Òµ","period":"2025/6/5 - \n2025/9/26"}],
+    interests: [{"name":"Ê±ï¿½Ð³ï¿½ï¿½ï¿½","icon":"star"},{"name":"ï¿½Åµï¿½ï¿½Ä»ï¿½","icon":"book"},{"name":"ï¿½ï¿½Ó°","icon":"camera"}],
+    education: [{"school":"ï¿½ï¿½ï¿½ï¿½ï¿½é»¯×±ï¿½ï¿½ÑµÑ§Ð£","major":"ï¿½ï¿½×±","degree":"×¨Òµ","period":"2025/6/5 - \n2025/9/26"}],
     experience: [
       {
-        company: "»§Íâ×±ÈÝÉè¼Æ",
-        position: "»¯×±Ê¦",
+        company: "ï¿½ï¿½ï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½ï¿½",
+        position: "ï¿½ï¿½×±Ê¦",
         period: "2025.07 - 2023.08",
-        logo: "»§",
+        logo: "ï¿½ï¿½",
         description: [
-          "Õë¶Ô»§Íâ¶àÔª³¡¾°£¨É­ÁÖ/º£µº/²ÝÆº£©¿ª·¢ÊÊÓ¦ÐÔ×±ÈÝ·½°¸£¬½â¾ö×ÔÈ»¹âÏßÓë»·¾³¸ÉÈÅÎÊÌâ",
-          "ºËÐÄ³É¹û£º½¨Á¢'³¡¾°-¹âÏß-·ôÖÊ'ÈýÎ¬ÊÊÅäÄ£ÐÍ£ºÉ­ÁÖ³¡¾°²ÉÓÃ'ÎíÃæµ××±+Ý®¹ûÏµ'ÅäÉ«£¬Í¨Í¸³Ö×±Ð£É«µþ¼ÓÖ²Îï¾«ÓÍËø×±Êõ£¬ÎüÊÕ´óµØÉ«½¥±ä´òÔìÁ¢Ìå¸Ð",
-          "º£±ß³¡¾°ÖØµãÓÅ»¯·ÀË®¿¹º¹Åä·½£¬ÓÃË®·À×±+Î¢Öé¹â·Û±ý¶¨×±; Î¢¹âÍ¸¸Ð¸ôÀëËªµÖ¿¹Ç¿×ÏÍâÏß; º£ÀËÀ¶µ÷ÑÛÓ°½¥±äËÜÔì×ÔÈ»ºìÔÎ¡£"
+          "ï¿½ï¿½Ô»ï¿½ï¿½ï¿½ï¿½Ôªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É­ï¿½ï¿½/ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½Æºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½ï¿½×±ï¿½Ý·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½ï¿½ï¿½ë»·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
+          "ï¿½ï¿½ï¿½Ä³É¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½Î¬ï¿½ï¿½ï¿½ï¿½Ä£ï¿½Í£ï¿½É­ï¿½Ö³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½ï¿½×±+Ý®ï¿½ï¿½Ïµ'ï¿½ï¿½É«ï¿½ï¿½Í¨Í¸ï¿½ï¿½×±Ð£É«ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¾«ï¿½ï¿½ï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õ´ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
+          "ï¿½ï¿½ï¿½ß³ï¿½ï¿½ï¿½ï¿½Øµï¿½ï¿½Å»ï¿½ï¿½ï¿½Ë®ï¿½ï¿½ï¿½ï¿½ï¿½ä·½ï¿½ï¿½ï¿½ï¿½Ë®ï¿½ï¿½×±+Î¢ï¿½ï¿½ï¿½Û±ï¿½ï¿½ï¿½×±; Î¢ï¿½ï¿½Í¸ï¿½Ð¸ï¿½ï¿½ï¿½Ëªï¿½Ö¿ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½; ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È»ï¿½ï¿½ï¿½Î¡ï¿½"
         ] 
       },
       {
-        company: "ºìºÚ¸çÌØ·ç¸ñÉè¼Æ", 
-        position: "»¯×±Ê¦",
+        company: "ï¿½ï¿½Ú¸ï¿½ï¿½Ø·ï¿½ï¿½ï¿½ï¿½ï¿½", 
+        position: "ï¿½ï¿½×±Ê¦",
         period: "2025.07 - 2025.08",
-        logo: "ºì", 
+        logo: "ï¿½ï¿½", 
         description: [
-          "Ö÷µ¼ºìºÚ¸çÌØ·çÏµÁÐ×±ÈÝ´´ÒâÉè¼ÆÓëÖ´ÐÐ£¬¾Û½¹¾«×¼ÃÀÑ§ÓëÏ·¾çÕÅÁ¦±í´ï",
-          "Éî¶ÈÍÚ¾ò¹Åµä¸çÌØÎÄ»¯·ûºÅÓëÏÖ´ú³±Á÷ÐÂÈÚºÏÌØµã£¬ÒÔ'ÑªÉ«ÀËÂþ'ÎªºËÐÄ¸ÅÄî£¬Éè¼Æ±êÖ¾ÐÔÐÉºì½¥±ä´½×±È«¹ý³Ì¡£"
+          "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú¸ï¿½ï¿½Ø·ï¿½Ïµï¿½ï¿½×±ï¿½Ý´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½Ð£ï¿½ï¿½Û½ï¿½ï¿½ï¿½×¼ï¿½ï¿½Ñ§ï¿½ï¿½Ï·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",
+          "ï¿½ï¿½ï¿½ï¿½Ú¾ï¿½Åµï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Úºï¿½ï¿½Øµã£¬ï¿½ï¿½'ÑªÉ«ï¿½ï¿½ï¿½ï¿½'Îªï¿½ï¿½ï¿½Ä¸ï¿½ï¿½î£¬ï¿½ï¿½Æ±ï¿½Ö¾ï¿½ï¿½ï¿½Éºì½¥ï¿½ä´½×±È«ï¿½ï¿½ï¿½Ì¡ï¿½"
         ]
       },
       {
-        company: "ÐÂÄï×±ÈÝÉè¼Æ",
-        position: "»¯×±Ê¦",
+        company: "ï¿½ï¿½ï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½ï¿½",
+        position: "ï¿½ï¿½×±Ê¦",
         period: "2025.06 - 2025.07",
-        logo: "ÐÂ",
+        logo: "ï¿½ï¿½",
         description: [
-          "»ùÓÚÐÂÄïÆøÖÊ¡¢»éÀñÖ÷Ìâ¡¢·þÊÎ·ç¸ñÌá¹©'×±ÈÝ+·¢ÐÍ+ÊÎÆ·'Ò»Ìå»¯¶¨ÖÆ·½°¸",
-          "Ç°ÆÚÉî¶È¹µÍ¨£ºÍ¨¹ý'»éÇ°·ÃÌ¸+ËØÑÕ·ÖÎö'¶àÎ¬¶ÈÃæ²¿Õï¶Ï£¨È·Á¢Á¢Ìå¸Ð¡¢±¥ÂúÆ»¹û¼¡)",
-          "×±ÈÝÏ¸½Ú°Ñ¿Ø£ºµ××±²ÉÓÃ'Î¢Êª·Ûµ×+Çá±¡ÃÛ·Û+¾Ö²¿ÕÚè¦'´òÔìÍ¨Í¸Ô­Éú¸Ð", 
-          "×±ÃæÖ¸¶¨Ï¸½Ú£ºÑÛ×±²ÉÓÃ'ÉîåäÑÛíø+·ÉÑïÑÛÏß'¾Ö²¿Ç¿µ÷´òÔìÁé¶¯ÃÀ¸Ð£¬¸ù¾ÝÀñ·þÉè¼Æ½¥±ä²ã´Î£¨ÑÛÎ²ÅÝÑÛÓÃ¹â´óµØÉ«ÏûÖ×)"
+          "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â¡¢ï¿½ï¿½ï¿½Î·ï¿½ï¿½ï¿½á¹©'×±ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½Æ·'Ò»ï¿½å»¯ï¿½ï¿½ï¿½Æ·ï¿½ï¿½ï¿½",
+          "Ç°ï¿½ï¿½ï¿½ï¿½È¹ï¿½Í¨ï¿½ï¿½Í¨ï¿½ï¿½'ï¿½ï¿½Ç°ï¿½ï¿½Ì¸+ï¿½ï¿½ï¿½Õ·ï¿½ï¿½ï¿½'ï¿½ï¿½Î¬ï¿½ï¿½ï¿½æ²¿ï¿½ï¿½Ï£ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½ï¿½ï¿½ï¿½ï¿½Æ»ï¿½ï¿½ï¿½ï¿½)",
+          "×±ï¿½ï¿½Ï¸ï¿½Ú°Ñ¿Ø£ï¿½ï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½'Î¢Êªï¿½Ûµï¿½+ï¿½á±¡ï¿½Û·ï¿½+ï¿½Ö²ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½Í¨Í¸Ô­ï¿½ï¿½ï¿½ï¿½", 
+          "×±ï¿½ï¿½Ö¸ï¿½ï¿½Ï¸ï¿½Ú£ï¿½ï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½+ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'ï¿½Ö²ï¿½Ç¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½é¶¯ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½ï¿½ï¿½ï¿½ï¿½Î£ï¿½ï¿½ï¿½Î²ï¿½ï¿½ï¿½ï¿½ï¿½Ã¹ï¿½ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½)"
         ]
       }
     ],
     projects: [
       {
-        name: "ºÚÕäÖé»¯×±ÅàÑµÑ§Ð£ÏîÄ¿", 
-        type: "ÃÀ×±",
-        description: "Í³³ïÐ­µ÷£º±£ÕÏ»î¶¯¸ßÐ§ÍÆ½ø£¬Ç°ÆÚÃ÷È·»î¶¯ºËÐÄÐèÇó", 
-        technologies: ["»î¶¯²ß»®", "»¯×±½ÌÑ§", "ÔìÐÍÉè¼Æ"],
+        name: "ï¿½ï¿½ï¿½ï¿½ï¿½é»¯×±ï¿½ï¿½ÑµÑ§Ð£ï¿½ï¿½Ä¿", 
+        type: "ï¿½ï¿½×±",
+        description: "Í³ï¿½ï¿½Ð­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï»î¶¯ï¿½ï¿½Ð§ï¿½Æ½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½È·ï¿½î¶¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½", 
+        technologies: ["ï¿½î¶¯ï¿½ß»ï¿½", "ï¿½ï¿½×±ï¿½ï¿½Ñ§", "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"],
         imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=makeup+artist+workspace+with+cosmetics+and+tools&sign=67219936f710fd5e9e3350b78c006914"
       }
     ],
     portfolioAlbums: [
       {
         id: 1,
-        title: "ÐÂÄï×±ÈÝÏµÁÐ",
+        title: "ï¿½ï¿½ï¿½ï¿½-×±ï¿½ï¿½Ïµï¿½ï¿½",
         coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=bridal+makeup+elegant+look&sign=51682d943e37120d2e340894ce3c3bd6",
         images: [
           {
             id: 1,
-            title: "ÐÂÄï×±ÈÝÉè¼Æ",
+            title: "ï¿½ï¿½ï¿½ï¿½×±ï¿½ï¿½ï¿½ï¿½ï¿½",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=bridal+makeup+elegant+look&sign=51682d943e37120d2e340894ce3c3bd6"
           },
           {
             id: 2,
-            title: "»éÀñÍíÑç×±ÈÝ",
+            title: "ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×±ï¿½ï¿½",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=wedding+dinner+makeup+glamorous&sign=f4f84bcaa81a231ce9ce9cd04c0a5ed6"
           }
         ]
       },
       {
         id: 2,
-        title: "Ê±ÉÐ·ç¸ñÏµÁÐ",
+        title: "Ê±ï¿½Ð·ï¿½ï¿½Ïµï¿½ï¿½",
         coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=fashion+magazine+makeup+editorial&sign=8db5d4410e95c3ccac313f2468eee9b4",
         images: [
           {
             id: 3,
-            title: "¸çÌØ·ç¸ñ×±ÈÝ",
+            title: "ï¿½ï¿½ï¿½Ø·ï¿½ï¿½×±ï¿½ï¿½",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=gothic+makeup+dark+romantic&sign=cd93ae6d89b596b839b5d8a967e5e01c"
           },
           {
             id: 4,
-            title: "Ê±ÉÐÔÓÖ¾×±ÈÝ",
+            title: "Ê±ï¿½ï¿½ï¿½ï¿½Ö¾×±ï¿½ï¿½",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=fashion+magazine+makeup+editorial&sign=8db5d4410e95c3ccac313f2468eee9b4"
           }
         ]
       },
       {
         id: 3,
-        title: "ÈÕ³£×±ÈÝÏµÁÐ",
+        title: "ï¿½Õ³ï¿½×±ï¿½ï¿½Ïµï¿½ï¿½",
         coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=natural+everyday+makeup&sign=4c8b226f84dfc65a3e01c1ee6ddbb3b8",
         images: [
           {
             id: 5,
-            title: "×ÔÈ»ÈÕ³£×±",
+            title: "ï¿½ï¿½È»ï¿½Õ³ï¿½×±",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=natural+everyday+makeup&sign=4c8b226f84dfc65a3e01c1ee6ddbb3b8"
           },
           {
             id: 6,
-            title: "»§ÍâÐ´Õæ×±ÈÝ",
+            title: "ï¿½ï¿½ï¿½ï¿½Ð´ï¿½ï¿½×±ï¿½ï¿½",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=outdoor+portrait+makeup+natural+light&sign=8955014a9750e98a426bc63dbcb8ca03"
           },
           {
             id: 7,
-            title: "ÎèÌ¨ÌØÐ§×±",
+            title: "ï¿½ï¿½Ì¨ï¿½ï¿½Ð§×±",
             imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=stage+special+effects+makeup&sign=4be391750779d121bdac26ce7bc5b3c9"
           }
         ]
@@ -336,7 +336,7 @@ export default function Resume() {
            <div className="flex items-center justify-center gap-4">
              <img 
                src="https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/1756025753_hd_20250824220457.png" 
-               alt="ÖÜ¼ÑÔ¥Í·Ïñ" 
+               alt="ï¿½Ü¼ï¿½Ô¥Í·ï¿½ï¿½" 
                className="w-20 h-20 rounded-full border-2 border-blue-500 shadow-lg object-cover"
              />
              <motion.h1
@@ -390,7 +390,7 @@ export default function Resume() {
           <div className="lg:col-span-1 space-y-8">
             {/* About section */}
             <div id="about">
-              <SectionCard title="¸öÈË¼ò½é">
+              <SectionCard title="ï¿½ï¿½ï¿½Ë¼ï¿½ï¿½">
                 <p className="text-gray-300 leading-relaxed">
                   {personalInfo.statement}
                 </p>
@@ -399,7 +399,7 @@ export default function Resume() {
             
             {/* Skills section */}
             <div id="skills">
-               <SectionCard title="¼¼ÄÜÕ»">
+               <SectionCard title="ï¿½ï¿½ï¿½ï¿½Õ»">
                 <div className="h-80 w-full">
                   <ResponsiveContainer width="100%" height="100%">
                     <RadarChart cx="50%" cy="50%" outerRadius="80%" data={personalInfo.skills}>
@@ -418,7 +418,7 @@ export default function Resume() {
                         axisLine={false}
                       />
                       <Radar
-                        name="¼¼ÄÜË®Æ½"
+                        name="ï¿½ï¿½ï¿½ï¿½Ë®Æ½"
                         dataKey="level"
                         stroke="#6366f1"
                         fill="#6366f1"
@@ -433,7 +433,7 @@ export default function Resume() {
             
             {/* Interests section */}
             <div id="interests">
-              <SectionCard title="ÐËÈ¤°®ºÃ">
+              <SectionCard title="ï¿½ï¿½È¤ï¿½ï¿½ï¿½ï¿½">
                 <div className="grid grid-cols-1 gap-4">
                   {personalInfo.interests.map((interest, index) => (
                     <div key={index} className="flex items-center">
@@ -452,7 +452,7 @@ export default function Resume() {
           <div className="lg:col-span-2 space-y-8">
             {/* Education section */}
             <div id="education">
-              <SectionCard title="½ÌÓý±³¾°">
+              <SectionCard title="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½">
                 <div className="bg-gray-800/50 rounded-lg p-5 border border-gray-700">
                   <h3 className="text-xl font-semibold text-white mb-1">{personalInfo.education[0].school}</h3>
                   <p className="text-gray-300 mb-1">{personalInfo.education[0].major} ({personalInfo.education[0].degree})</p>
@@ -463,7 +463,7 @@ export default function Resume() {
             
             {/* Experience section */}
             <div id="experience">
-              <SectionCard title="¹¤×÷¾­Àú">
+              <SectionCard title="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½">
                 <div className="space-y-4">
                   {personalInfo.experience.map((exp, index) => (
                     <WorkExperience key={index} experience={exp} />
@@ -474,7 +474,7 @@ export default function Resume() {
             
             {/* Projects section */}
             <div id="projects">
-              <SectionCard title="¸öÈËÏîÄ¿">
+              <SectionCard title="ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿">
                 <div className="space-y-4">
                    {personalInfo.projects.map((project, index) => (
                     <ProjectCard key={index} project={project} />
@@ -484,14 +484,14 @@ export default function Resume() {
                      {/* Portfolio with albums */}
                      <div className="mt-8">
                        <div className="flex items-center justify-between mb-6">
-                         <h3 className="text-2xl font-semibold text-white">×÷Æ·Õ¹Ê¾</h3>
+                         <h3 className="text-2xl font-semibold text-white">ï¿½ï¿½Æ·Õ¹Ê¾</h3>
                          {!showAlbums && (
                            <button 
                              onClick={handleBackToAlbums}
                              className="flex items-center text-blue-400 hover:text-blue-300 transition-colors"
                            >
                              <i className="fa-solid fa-arrow-left mr-2"></i>
-                             <span>·µ»ØÏà²á¼¯</span>
+                             <span>ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á¼¯</span>
                            </button>
                          )}
                        </div>
@@ -518,10 +518,10 @@ export default function Resume() {
                                 </div>
                                <div className="absolute bottom-0 left-0 p-6 w-full">
                                  <h4 className="text-2xl font-bold text-white mb-2">{album.title}</h4>
-                                 <p className="text-gray-300 mb-4">{album.images.length} ¸ö×÷Æ·</p>
+                                 <p className="text-gray-300 mb-4">{album.images.length} ï¿½ï¿½ï¿½ï¿½Æ·</p>
                                  <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
                                    <div className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center">
-                                     <span>²é¿´×÷Æ·</span>
+                                     <span>ï¿½é¿´ï¿½ï¿½Æ·</span>
                                      <i className="fa-solid fa-arrow-right ml-2"></i>
                                    </div>
                                  </div>
@@ -549,7 +549,7 @@ export default function Resume() {
                                    <div className="p-4 w-full">
                                      <h3 className="text-white font-medium">{item.title}</h3>
                                      <div className="mt-1 text-xs text-gray-300 flex items-center">
-                                       <i className="fa-solid fa-search-plus mr-1"></i> µã»÷²é¿´´óÍ¼
+                                       <i className="fa-solid fa-search-plus mr-1"></i> ï¿½ï¿½ï¿½ï¿½é¿´ï¿½ï¿½Í¼
                                      </div>
                                    </div>
                                  </div>
@@ -603,7 +603,7 @@ export default function Resume() {
       
       {/* Footer */}
       <footer className="py-8 bg-gray-900/60 backdrop-blur-md border-t border-gray-800 mt-16">
-        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">? {new Date().getFullYear()} {personalInfo.name} - Ç°¶Ë¿ª·¢¹¤³ÌÊ¦¼òÀú</div>
+        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">? {new Date().getFullYear()} {personalInfo.name} - Ç°ï¿½Ë¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¦ï¿½ï¿½ï¿½ï¿½</div>
       </footer>
     </div>
   );
