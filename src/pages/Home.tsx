@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 export default function Home() {
   const navigate = useNavigate();
   
-  const personalStatement = "我是一名对技术充满热情的初级前端开发工程师，拥有两年的Web开发经验，专注于使用React和Vue构建用户友好的交互式界面。我热衷于将设计师的创意精准地转化为高性能的网页应用，并不断学习前沿技术以提升自己。我是一个积极主动的问题解决者，期待能加入一个富有挑战和创造力的团队。";
+  const personalStatement = "扎实的专业技能基础，系统掌握化妆技艺核心技法，能精准驾驭不同风格妆容设计与发型造型，注重妆容质感（如层次化通透感、色彩层次感）与发型结构完整性，对肤质适配、脸型修饰等细节把控专业，实践经验覆盖多人次化妆服务场景。";
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-4 z-10 relative">

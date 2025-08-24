@@ -1,30 +1,33 @@
-# 
+# 个人简历网站
 
-项目编号: 7542078458088767753
+这是一个基于React+TypeScript构建的个人简历网站，具有星光宇宙背景和现代UI设计。
 
-本项目是由 [网站开发专家](https://space.coze.cn/) 创建.
+## 运行步骤
 
-[**项目地址**](https://space.coze.cn/task/7542078458088767753)
+1. 确保已安装Node.js（推荐v16+）和pnpm
+   - 安装pnpm: `npm install -g pnpm`
 
-## 本地开发
+2. 克隆或下载项目到本地
 
-### 环境准备
+3. 在VSCode中打开项目文件夹
 
-- 安装 [Node.js](https://nodejs.org/en)
-- 安装 [pnpm](https://pnpm.io/installation)
+4. 打开终端（Ctrl+` 或 查看 > 终端）
 
-### 操作步骤
+5. 安装依赖:
+   ```bash
+   pnpm install
+   ```
 
-- 安装依赖
+6. 启动开发服务器:
+   ```bash
+   pnpm dev
+   ```
 
-```sh
-pnpm install
-```
+7. 在浏览器中访问 http://localhost:3000 查看网站
 
-- 启动 Dev Server
+## 项目结构
 
-```sh
-pnpm run dev
-```
-
-- 在浏览器访问 http://localhost:3000
+- `src/pages/Home.tsx` - 引导页
+- `src/pages/Resume.tsx` - 详细简历页
+- `src/components/` - 可复用组件
+- `src/index.css` - 全局样式

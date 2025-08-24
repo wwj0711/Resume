@@ -2,78 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
-// Personal information
-const personalInfo = {
-  name: "王明",
-  title: "前端开发工程师",
-  contact: {
-    phone: "138****5678",
-    email: "wangming@example.com",
-    github: "github.com/wangming",
-    linkedin: "linkedin.com/in/wangming"
-  },
-  statement: "我是一名对技术充满热情的初级前端开发工程师，拥有两年的Web开发经验，专注于使用React和Vue构建用户友好的交互式界面。我热衷于将设计师的创意精准地转化为高性能的网页应用，并不断学习前沿技术以提升自己。我是一个积极主动的问题解决者，期待能加入一个富有挑战和创造力的团队。",
-  skills: [
-    { name: "JavaScript", level: 5 },
-    { name: "TypeScript", level: 4 },
-    { name: "React", level: 4 },
-    { name: "Vue", level: 3 },
-    { name: "HTML5", level: 5 },
-    { name: "CSS3", level: 5 },
-    { name: "Sass", level: 4 },
-    { name: "ECharts", level: 3 },
-    { name: "Git", level: 5 },
-    { name: "Figma", level: 3 }
-  ],
-  interests: [
-    { name: "摄影", icon: "camera" },
-    { name: "篮球", icon: "basketball-ball" },
-    { name: "阅读科幻小说", icon: "book" }
-  ],
-  education: [
-    {
-      school: "上海交通大学",
-      major: "计算机科学与技术",
-      degree: "本科",
-      period: "2018.09 - 2022.06"
-    }
-  ],
-  experience: [
-    {
-      id: 1,
-      company: "字节跳动",
-      position: "前端开发工程师",
-      period: "2022.07 - 至今",
-      description: [
-        "负责公司内部数据可视化平台的前端开发与维护，使用React和ECharts。",
-        "通过代码重构和性能优化，将关键页面的加载速度提升了30%。",
-        "与产品经理和设计师紧密合作，快速迭代了超过10个版本的功能。"
-      ],
-      logo: "BJ"
-    },
-    {
-      id: 2,
-      company: "腾讯科技",
-      position: "前端开发实习生",
-      period: "2021.07 - 2021.12",
-      description: [
-        "协助开发微信小程序“城市服务”模块，主要负责UI组件的编写和API对接。",
-        "参与了代码审查（Code Review），学习并遵循了团队的编码规范。"
-      ],
-      logo: "TX"
-    }
-  ],
-  projects: [
-    {
-      id: 1,
-      name: "个人博客系统",
-      type: "独立项目",
-      description: "一个基于Vue.js和Nuxt.js构建的静态博客网站，实现了文章发布、标签分类、Markdown实时渲染和响应式布局。通过这个项目，我深入学习了服务端渲染（SSR）和SEO优化技术。",
-      technologies: ["Vue.js", "Nuxt.js", "Markdown", "SSR", "SEO"],
-      imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=landscape_16_9&prompt=personal%20blog%20website%20screenshot%20dark%20theme&sign=64d4573859480a39b0c9eb896799eb9e"
-    }
-  ]
-};
+
 
 // Navigation component
 const Navbar = () => {
@@ -83,6 +12,7 @@ const Navbar = () => {
     { id: 'education', label: '教育背景' },
     { id: 'experience', label: '工作经历' },
     { id: 'projects', label: '个人项目' },
+    { id: 'portfolio', label: '作品展示' },
     { id: 'interests', label: '兴趣爱好' }
   ];
 
@@ -132,7 +62,6 @@ const SectionCard = ({ title, children }) => {
       className="mb-8 bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-gray-800 shadow-lg"
     >
       <h2 className="text-2xl font-bold text-white mb-4 pb-2 border-b border-gray-700 flex items-center">
-        <i class="fa-solid fa-star text-yellow-400 mr-2"></i>
         {title}
       </h2>
       {children}
@@ -163,28 +92,19 @@ const SkillRating = ({ skill }) => {
     return () => observer.disconnect();
   }, []);
 
-  return (
-    <div ref={ref} className="mb-4">
-      <div className="flex justify-between mb-1">
-        <span className="text-gray-300">{skill.name}</span>
-        <span className="text-gray-400 text-sm">{skill.level}星</span>
-      </div>
-      <div className="w-full bg-gray-800 rounded-full h-2">
-        <motion.div
-          initial={{ width: 0 }}
-          animate={animate ? { width: `${skill.level * 20}%` } : {}}
-          transition={{ duration: 1, ease: 'easeOut' }}
-          className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full"
-        />
-        <div className="flex justify-between mt-1">
-          {[...Array(5)].map((_, i) => (
-            <i 
-              key={i} 
-              className={`fa-solid fa-star text-xs ${i < skill.level ? 'text-yellow-400' : 'text-gray-700'}`}
-            ></i>
-          ))}
+    return (
+      <div ref={ref} className="mb-4">
+        <div className="flex justify-between mb-1">
+          <span className="text-gray-300">{skill.name}</span>
         </div>
-      </div>
+        <div className="w-full bg-gray-800 rounded-full h-2">
+          <motion.div
+            initial={{ width: 0 }}
+            animate={animate ? { width: `${skill.level * 20}%` } : {}}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            className="bg-gradient-to-r from-blue-400 to-purple-500 h-2 rounded-full"
+          />
+        </div>
     </div>
   );
 };
@@ -199,7 +119,7 @@ const WorkExperience = ({ experience }) => {
     <motion.div
       ref={ref}
       initial={{ opacity: 0, x: -20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
+       animate={isInView ? { opacity: 1, x: 0 } : {}}
       transition={{ duration: 0.5, ease: 'easeOut' }}
       className="mb-6 bg-gray-800/50 rounded-lg p-5 border border-gray-700 hover:border-gray-600 transition-colors duration-300"
     >
@@ -218,7 +138,7 @@ const WorkExperience = ({ experience }) => {
           onClick={() => setExpanded(!expanded)}
           className="text-gray-400 hover:text-white transition-colors"
         >
-          <i class={`fa-solid ${expanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
+          <i className={`fa-solid ${expanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
         </button>
       </div>
       
@@ -231,7 +151,7 @@ const WorkExperience = ({ experience }) => {
         <ul className="space-y-2 text-gray-300">
           {experience.description.map((item, index) => (
             <li key={index} className="flex items-start">
-              <i class="fa-solid fa-angle-right text-blue-400 mt-1 mr-2"></i>
+              <i className="fa-solid fa-angle-right text-blue-400 mt-1 mr-2"></i>
               <span>{item}</span>
             </li>
           ))}
@@ -285,19 +205,134 @@ const ProjectCard = ({ project }) => {
 
 // Main Resume component
 export default function Resume() {
+  // Personal information data
+  const personalInfo = {
+    name: "周佳豫",
+    title: "化妆师",
+    email: "example@example.com",
+    phone: "13541313431",
+    location: "四川省成都市成华区",
+    statement: "扎实的专业技能基础，系统掌握化妆技艺核心技法，能精准驾驭不同风格妆容设计与发型造型，注重妆容质感（如层次化通透感、色彩层次感）与发型结构完整性，对肤质适配、脸型修饰等细节把控专业，实践经验覆盖多人次化妆服务场景。",
+    skills: [
+      { name: "专业化妆技法", level: 5 },
+      { name: "发型设计", level: 4 },
+      { name: "色彩搭配", level: 5 },
+      { name: "肤质分析", level: 4 },
+      { name: "古典妆容", level: 4 },
+      { name: "现代时尚妆", level: 5 },
+      { name: "新娘妆", level: 4 },
+      { name: "特效妆", level: 3 }
+    ],
+    interests: [
+      { name: "时尚潮流", icon: "star" },
+      { name: "古典文化", icon: "book" },
+      { name: "摄影", icon: "camera" }
+    ],
+    education: [
+      {
+        school: "黑珍珠化妆培训学校",
+        major: "美妆",
+        degree: "专业",
+        period: "2025/6/5 - 2025/9/26"
+      }
+    ],
+    experience: [
+      {
+        company: "户外妆容设计",
+        position: "化妆师",
+        period: "2025.07 - 2023.08",
+        logo: "户",
+        description: [
+          "针对户外多元场景（森林/海岛/草坪）开发适应性妆容方案，解决自然光线与环境干扰问题",
+          "核心成果：建立'场景-光线-肤质'三维适配模型：森林场景采用'雾面底妆+莓果系'配色，通透持妆校色叠加植物精油锁妆术，吸收大地色渐变打造立体感",
+          "海边场景重点优化防水抗汗配方，用水防妆+微珠光粉饼定妆; 微光透感隔离霜抵抗强紫外线; 海浪蓝调眼影渐变塑造自然红晕。"
+        ] 
+      },
+      {
+        company: "红黑哥特风格设计", 
+        position: "化妆师",
+        period: "2025.07 - 2025.08",
+        logo: "红", 
+        description: [
+          "主导红黑哥特风系列妆容创意设计与执行，聚焦精准美学与戏剧张力表达",
+          "深度挖掘古典哥特文化符号与现代潮流新融合特点，以'血色浪漫'为核心概念，设计标志性猩红渐变唇妆全过程。"
+        ]
+      },
+      {
+        company: "新娘妆容设计",
+        position: "化妆师",
+        period: "2025.06 - 2025.07",
+        logo: "新",
+        description: [
+          "基于新娘气质、婚礼主题、服饰风格提供'妆容+发型+饰品'一体化定制方案",
+          "前期深度沟通：通过'婚前访谈+素颜分析'多维度面部诊断（确立立体感、饱满苹果肌)",
+          "妆容细节把控：底妆采用'微湿粉底+轻薄蜜粉+局部遮瑕'打造通透原生感", 
+          "妆面指定细节：眼妆采用'深邃眼眸+飞扬眼线'局部强调打造灵动美感，根据礼服设计渐变层次（眼尾泡眼用光大地色消肿)"
+        ]
+      }
+    ],
+    projects: [
+      {
+        name: "黑珍珠化妆培训学校项目", 
+        type: "美妆",
+        description: "统筹协调：保障活动高效推进，前期明确活动核心需求", 
+        technologies: ["活动策划", "化妆教学", "造型设计"],
+        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=makeup+artist+workspace+with+cosmetics+and+tools&sign=67219936f710fd5e9e3350b78c006914"
+      }
+     ],
+    portfolio: [
+      {
+        id: 1,
+        title: "新娘妆容设计",
+        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=bridal+makeup+elegant+look&sign=51682d943e37120d2e340894ce3c3bd6"
+      },
+      {
+        id: 2,
+        title: "哥特风格妆容",
+        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=gothic+makeup+dark+romantic&sign=cd93ae6d89b596b839b5d8a967e5e01c"
+      },
+      {
+        id: 3,
+        title: "自然日常妆",
+        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=natural+everyday+makeup&sign=4c8b226f84dfc65a3e01c1ee6ddbb3b8"
+      },
+      {
+        id: 4,
+        title: "舞台特效妆",
+        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=stage+special+effects+makeup&sign=4be391750779d121bdac26ce7bc5b3c9"
+      },
+      {
+        id: 5,
+        title: "时尚杂志妆容",
+        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=fashion+magazine+makeup+editorial&sign=8db5d4410e95c3ccac313f2468eee9b4"
+      },
+      {
+        id: 6,
+        title: "户外写真妆容",
+        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=outdoor+portrait+makeup+natural+light&sign=8955014a9750e98a426bc63dbcb8ca03"
+      }
+    ]
+  };
   return (
     <div className="relative z-10 min-h-screen">
       {/* Header with name and title */}
       <header className="py-16 bg-gray-900/60 backdrop-blur-md border-b border-gray-800">
         <div className="container mx-auto px-4 text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-4xl md:text-5xl font-bold text-white mb-2"
-          >
-            {personalInfo.name}
-          </motion.h1>
+           <div className="flex items-center justify-center gap-4">
+             <img 
+               src="https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/1756025753_hd_20250824220457.png" 
+               alt="周佳豫头像" 
+               className="w-20 h-20 rounded-full border-2 border-blue-500 shadow-lg object-cover"
+             />
+             <motion.h1
+               initial={{ opacity: 0, y: -20 }}
+               animate={{ opacity: 1, y: 0 }}
+               transition={{ duration: 0.8 }}
+               className="text-4xl md:text-5xl font-bold text-white mb-2"
+             >
+               {personalInfo.name}
+             </motion.h1>
+           </div>
           <motion.p
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -312,21 +347,19 @@ export default function Resume() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex justify-center flex-wrap gap-4 md:gap-8 mt-6 text-gray-400 text-sm"
+            className="mt-6 flex flex-wrap justify-center gap-4 md:gap-8 text-gray-400"
           >
             <div className="flex items-center">
-              <i class="fa-solid fa-phone mr-2 text-blue-400"></i>
-              <span>{personalInfo.contact.phone}</span>
+              <i className="fa-solid fa-envelope text-blue-400 mr-2"></i>
+              <span>{personalInfo.email}</span>
             </div>
-            
             <div className="flex items-center">
-              <i class="fa-solid fa-envelope mr-2 text-blue-400"></i>
-              <span>{personalInfo.contact.email}</span>
+              <i className="fa-solid fa-phone text-blue-400 mr-2"></i>
+              <span>{personalInfo.phone}</span>
             </div>
-            
             <div className="flex items-center">
-              <i class="fa-brands fa-github mr-2 text-blue-400"></i>
-              <span>{personalInfo.contact.github}</span>
+              <i className="fa-solid fa-map-marker-alt text-blue-400 mr-2"></i>
+              <span>{personalInfo.location}</span>
             </div>
           </motion.div>
         </div>
@@ -367,7 +400,7 @@ export default function Resume() {
                   {personalInfo.interests.map((interest, index) => (
                     <div key={index} className="flex items-center">
                       <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center mr-3 text-blue-400">
-                        <i class={`fa-solid fa-${interest.icon}`}></i>
+                        <i className={`fa-solid fa-${interest.icon}`}></i>
                       </div>
                       <span className="text-gray-300">{interest.name}</span>
                     </div>
@@ -410,14 +443,21 @@ export default function Resume() {
                   ))}
                 </div>
               </SectionCard>
-            </div>
+             </div>
+          </div>
+          
+          {/* Portfolio section */}
+          <div id="portfolio">
+            <SectionCard title="作品展示">
+              {/* PortfolioGallery component not defined, so removing this line */}
+            </SectionCard>
           </div>
         </div>
       </main>
       
       {/* Footer */}
       <footer className="py-8 bg-gray-900/60 backdrop-blur-md border-t border-gray-800 mt-16">
-        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">© {new Date().getFullYear()} {personalInfo.name} - 前端开发工程师简历</div>
+        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">© {new Date().getFullYear()} {personalInfo.name} - 简历</div>
       </footer>
     </div>
   );
