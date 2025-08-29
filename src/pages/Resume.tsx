@@ -1,186 +1,238 @@
-import { useState, useEffect } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, ResponsiveContainer } from 'recharts';
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence, useInView } from 'framer-motion';
 
+// 作品集展示页面 - 完全重构为专注于作品展示的单一场景
 
-
-// Navigation component
-const Navbar = () => {
-  const sections = [
-    { id: 'about', label: '个人简介' },
-    { id: 'skills', label: '技能栈' },
-    { id: 'education', label: '教育背景' },
-    { id: 'experience', label: '工作经历' },
-    { id: 'projects', label: '个人项目' },
-    { id: 'portfolio', label: '作品展示' },
-    { id: 'interests', label: '兴趣爱好' }
-  ];
-
-  const scrollToSection = (id) => {
-    const element = document.getElementById(id);
-    if (element) {
-      window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  return (
-    <nav className="sticky top-0 bg-gray-900/70 backdrop-blur-md z-50 border-b border-gray-800">
-      <div className="container mx-auto px-4">
-        <div className="flex justify-center py-4">
-          <ul className="flex space-x-6 md:space-x-10 text-sm md:text-base">
-            {sections.map((section) => (
-              <li key={section.id}>
-                <button
-                  onClick={() => scrollToSection(section.id)}
-                  className="text-gray-300 hover:text-white transition-colors duration-300 flex items-center"
-                >
-                  <span>{section.label}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
-    </nav>
-  );
-};
-
-// Section card component
-const SectionCard = ({ title, children }) => {
+// 相册卡片组件
+const AlbumCard = ({ album, onSelect }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-100px' });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, x: -20 }}
-      animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="mb-8 bg-gray-900/60 backdrop-blur-sm rounded-xl p-6 border border-gray-800 shadow-lg"
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={isInView ? { opacity: 1, y: 0, scale: 1 } : {}}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-500 cursor-pointer shadow-lg hover:shadow-blue-900/20 hover:z-10"
+      onClick={() => onSelect(album)}
     >
-      <h2 className="text-2xl font-bold text-white mb-4 pb-2 border-b border-gray-700 flex items-center">
-        {title}
-      </h2>
-      {children}
-    </motion.div>
-  );
-};
+      <div className="aspect-square overflow-hidden">
+        <img 
+          src={album.coverImage} 
+          alt={album.title} 
+          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-80"></div>
+        
+        {/* 悬浮时显示的装饰元素 */}
 
-
-
-// Work experience component
-const WorkExperience = ({ experience }) => {
-  const [expanded, setExpanded] = useState(true);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
-
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, x: -20 }}
-       animate={isInView ? { opacity: 1, x: 0 } : {}}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="mb-6 bg-gray-800/50 rounded-lg p-5 border border-gray-700 hover:border-gray-600 transition-colors duration-300"
-    >
-      <div className="flex items-start justify-between">
-        <div className="flex items-start">
-          <div className="bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg w-12 h-12 flex items-center justify-center text-white font-bold text-xl mr-4 flex-shrink-0">
-            {experience.logo}
-          </div>
-          <div>
-            <h3 className="text-xl font-semibold text-white">{experience.company}</h3>
-            <p className="text-gray-300">{experience.position}</p>
-            <p className="text-gray-400 text-sm">{experience.period}</p>
-          </div>
-        </div>
-        <button
-          onClick={() => setExpanded(!expanded)}
-          className="text-gray-400 hover:text-white transition-colors"
-        >
-          <i className={`fa-solid ${expanded ? 'fa-chevron-up' : 'fa-chevron-down'}`}></i>
-        </button>
+        <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-blue-500 rounded-full filter blur-3xl opacity-0 group-hover:opacity-20 transition-opacity duration-1000"></div>
       </div>
       
-      <motion.div
-        initial={{ maxHeight: 0, opacity: 0 }}
-        animate={expanded ? { maxHeight: 500, opacity: 1 } : { maxHeight: 0, opacity: 0 }}
-        transition={{ duration: 0.3, ease: 'easeInOut' }}
-        className="mt-4 pl-16 overflow-hidden"
-      >
-        <ul className="space-y-2 text-gray-300">
-          {experience.description.map((item, index) => (
-            <li key={index} className="flex items-start">
-              <i className="fa-solid fa-angle-right text-blue-400 mt-1 mr-2"></i>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-      </motion.div>
+      <div className="absolute bottom-0 left-0 p-6 w-full">
+
+        
+        <motion.p 
+          initial={{ y: 10, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          className="text-gray-300 mb-4"
+        >
+          {album.images.length} 个作品
+        </motion.p>
+        
+        <motion.div
+          className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500"
+        >
+          <div className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center shadow-lg transform group-hover:translate-x-1 transition-transform">
+            <span>查看作品</span>
+            <i className="fa-solid fa-arrow-right ml-2"></i>
+          </div>
+        </motion.div>
+      </div>
     </motion.div>
   );
 };
 
-// Project card component
-const ProjectCard = ({ project }) => {
+// 作品图片卡片组件
+const PortfolioImageCard = ({ image, onSelect }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-100px' });
+  const isInView = useInView(ref, { once: true, margin: '-50px' });
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 20 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, ease: 'easeOut' }}
-      className="bg-gray-800/50 rounded-lg overflow-hidden border border-gray-700 hover:border-gray-600 transition-all duration-300 hover:shadow-lg hover:shadow-blue-900/10"
+      initial={{ opacity: 0, scale: 0.9 }}
+      animate={isInView ? { opacity: 1, scale: 1 } : {}}
+      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative rounded-lg overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-500 cursor-pointer"
+      onClick={() => onSelect(image)}
     >
-      <div className="relative">
+      <div className="aspect-square overflow-hidden">
         <img 
-          src={project.imageUrl} 
-          alt={project.name} 
-          className="w-full h-48 object-cover"
+          src={image.imageUrl} 
+          alt={image.title} 
+          className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 ease-out"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-70"></div>
-      </div>
-      <div className="p-5">
-        <div className="flex justify-between items-start mb-2">
-          <h3 className="text-xl font-semibold text-white">{project.name}</h3>
-          <span className="bg-gray-700 text-gray-300 text-xs px-2 py-1 rounded-full">{project.type}</span>
-        </div>
-        <p className="text-gray-300 mb-4">{project.description}</p>
-        <div className="flex flex-wrap gap-2">
-          {project.technologies.map((tech, index) => (
-            <span 
-              key={index} 
-              className="bg-gray-700/70 text-gray-200 text-xs px-3 py-1 rounded-full hover:bg-gray-600 transition-colors"
-            >
-              {tech}
-            </span>
-          ))}
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
+          <div className="p-4 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+            <h3 className="text-white font-medium text-lg">{image.title}</h3>
+            <div className="mt-1 text-xs text-gray-300 flex items-center">
+              <i className="fa-solid fa-search-plus mr-1"></i> 点击查看大图
+            </div>
+          </div>
         </div>
       </div>
     </motion.div>
   );
 };
 
-// Main Resume component
-export default function Resume() {
-  // 相册模态框状态管理
+// 主作品集页面组件
+export default function PortfolioPage() {
+  // 状态管理
   const [selectedImage, setSelectedImage] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAlbum, setSelectedAlbum] = useState(null);
   const [showAlbums, setShowAlbums] = useState(true);
+  const [activeFilter, setActiveFilter] = useState('all');
   
-  // 处理相册集点击事件
+  // 作品集数据
+  const portfolioAlbums = [
+    {
+      id: 2,
+      title: "哥特风格系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/bc3490bfc29977953faf49e975133a87_20250829160256.jpg",
+      images: [
+        {
+          id: 4,
+          title: "哥特式优雅妆容",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/bc3490bfc29977953faf49e975133a87_20250829160256.jpg"
+        },
+        {
+          id: 5,
+          title: "暗黑系哥特妆容",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/43b3bac4c48d82b0390a492ef25244a4_20250829160256.jpg"
+        }
+      ]
+    },
+    {
+      id: 3,
+      title: "复古戏剧系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/c9bb0af2d87ea6854499b0514b4d05c6_20250829161620.jpg",
+      images: [
+        {
+          id: 6,
+          title: "复古发髻造型",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/c9bb0af2d87ea6854499b0514b4d05c6_20250829161620.jpg"
+        },
+        {
+          id: 7,
+          title: "戏剧风盘发",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/4b33acdf11b6e2c2d71b1b6d51232c4b_20250829161620.jpg"
+        }
+      ]
+    },
+    {
+      id: 4,
+      title: "婚礼造型系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/8d7cef75ff9bfa6c6fb55a358d130c67_20250829161620.jpg",
+      images: [
+        {
+          id: 8,
+          title: "浪漫婚纱造型",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/8d7cef75ff9bfa6c6fb55a358d130c67_20250829161620.jpg"
+        }
+      ]
+    },
+    {
+      id: 5,
+      title: "日常妆容系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/61eb0a7c1e9738c3328fa24c7eeac7cc_20250829161621.jpg",
+      images: [
+        {
+          id: 9,
+          title: "自然裸妆",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/61eb0a7c1e9738c3328fa24c7eeac7cc_20250829161621.jpg"
+        },
+        {
+          id: 10,
+          title: "日常长发造型",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/90b3d63eb32f4dc98bc5c43bf2054e11_20250829161621.jpg"
+        }
+      ]
+    },
+    {
+      id: 6,
+      title: "时尚前卫系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/7262e6771c0347dc3f537a37843cd83f_20250829161621.jpg",
+      images: [
+        {
+          id: 11,
+          title: "黑色西装时尚造型",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/7262e6771c0347dc3f537a37843cd83f_20250829161621.jpg"
+        }
+      ]
+    },
+    {
+      id: 7,
+      title: "甜美少女系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/17616ad47a7ddfbd271d4ea44c2bebe9_20250829161621.jpg",
+      images: [
+        {
+          id: 12,
+          title: "粉色系少女妆",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/17616ad47a7ddfbd271d4ea44c2bebe9_20250829161621.jpg"
+        }
+      ]
+    },
+    {
+      id: 8,
+      title: "优雅成熟系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/566785ffb2dddec07e58ab4cf2fba608_20250829161621.jpg",
+      images: [
+        {
+          id: 13,
+          title: "优雅波浪卷发",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/566785ffb2dddec07e58ab4cf2fba608_20250829161621.jpg"
+        }
+      ]
+    },
+    {
+      id: 9,
+      title: "花仙子系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/a41015c963420e2fa0e342783c1999b2_20250829161621.jpg",
+      images: [
+        {
+          id: 14,
+          title: "花朵装饰造型",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/a41015c963420e2fa0e342783c1999b2_20250829161621.jpg"
+        }
+      ]
+    },
+    {
+      id: 10,
+      title: "活泼俏皮系列",
+      coverImage: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/af57c30310cbe658f518c830d45f8793_20250829161621.jpg",
+      images: [
+        {
+          id: 15,
+          title: "双马尾卷发",
+          imageUrl: "https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/af57c30310cbe658f518c830d45f8793_20250829161621.jpg"
+        }
+      ]
+    }
+  ];
+  
+  // 处理相册点击事件
   const handleAlbumClick = (album) => {
     setSelectedAlbum(album);
     setShowAlbums(false);
+    // 滚动到顶部
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   
-  // 返回相册集列表
+  // 返回相册列表
   const handleBackToAlbums = () => {
     setSelectedAlbum(null);
     setShowAlbums(true);
@@ -196,7 +248,7 @@ export default function Resume() {
     document.body.style.overflow = 'hidden';
   };
   
-  // 关闭模态框
+  // 关闭图片模态框
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedImage(null);
@@ -204,407 +256,162 @@ export default function Resume() {
     document.body.style.overflow = 'auto';
   };
   
-  // Personal information data
-  
-  const personalInfo = {
-    name: "周佳豫",
-    title: "化妆师",
-    email: "example@example.com",
-    phone: "13541313431",
-    location: "四川省成都市成华区",
-    statement: "扎实的专业技能基础，系统掌握化妆技艺核心技法，能精准驾驭不同风格妆容设计与发型造型，注重妆容质感（如层次化通透感\色彩层次感）与发型结构完整性\对肤质适配\脸型修饰等细节把控专业\实践经验覆盖多人次化妆服务场景",
-    skills: [
-      { name: "专业化妆技法", level:5 },
-      { name: "发型设计", level:4 },
-      { name: "色彩搭配", level:5 },
-      { name: "肤质分析", level:4 },
-      { name: "古典妆容", level:4 },
-      { name: "现代时尚妆", level:5 },
-      { name: "新娘妆", level:4 },
-      { name: "特效妆", level:3 }
-    ],
-    interests: [{"name":"时尚潮流","icon":"star"},{"name":"古典文化","icon":"book"},{"name":"摄影","icon":"camera"}],
-    education: [{"school":"黑珍珠化妆培训学校","major":"美妆","degree":"专业","period":"2025/6/5 - \n2025/9/26"}],
-    experience: [
-      {
-        company: "户外妆容设计",
-        position: "化妆师",
-        period: "2025.07 - 2023.08",
-        logo: "户",
-        description: [
-          "针对户外多元场景（森林/海岛/草坪）开发适应性妆容方案，解决自然光线与环境干扰问题",
-          "核心成果：建立'场景-光线-肤质'三维适配模型：森林场景采用'雾面底妆+莓果系'配色，通透持妆校色叠加植物精油锁妆术，吸收大地色渐变打造立体感",
-          "海边场景重点优化防水抗汗配方，用水防妆+微珠光粉饼定妆; 微光透感隔离霜抵抗强紫外线; 海浪蓝调眼影渐变塑造自然红晕。"
-        ] 
-      },
-      {
-        company: "红黑哥特风格设计", 
-        position: "化妆师",
-        period: "2025.07 - 2025.08",
-        logo: "红", 
-        description: [
-          "主导红黑哥特风系列妆容创意设计与执行，聚焦精准美学与戏剧张力表达",
-          "深度挖掘古典哥特文化符号与现代潮流新融合特点，以'血色浪漫'为核心概念，设计标志性猩红渐变唇妆全过程。"
-        ]
-      },
-      {
-        company: "新娘妆容设计",
-        position: "化妆师",
-        period: "2025.06 - 2025.07",
-        logo: "新",
-        description: [
-          "基于新娘气质、婚礼主题、服饰风格提供'妆容+发型+饰品'一体化定制方案",
-          "前期深度沟通：通过'婚前访谈+素颜分析'多维度面部诊断（确立立体感、饱满苹果肌)",
-          "妆容细节把控：底妆采用'微湿粉底+轻薄蜜粉+局部遮瑕'打造通透原生感", 
-          "妆面指定细节：眼妆采用'深邃眼眸+飞扬眼线'局部强调打造灵动美感，根据礼服设计渐变层次（眼尾泡眼用光大地色消肿)"
-        ]
-      }
-    ],
-    projects: [
-      {
-        name: "黑珍珠化妆培训学校项目", 
-        type: "美妆",
-        description: "统筹协调：保障活动高效推进，前期明确活动核心需求", 
-        technologies: ["活动策划", "化妆教学", "造型设计"],
-        imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=makeup+artist+workspace+with+cosmetics+and+tools&sign=67219936f710fd5e9e3350b78c006914"
-      }
-    ],
-    portfolioAlbums: [
-      {
-        id: 1,
-        title: "新娘妆容系列",
-        coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=bridal+makeup+elegant+look&sign=51682d943e37120d2e340894ce3c3bd6",
-        images: [
-          {
-            id: 1,
-            title: "新娘妆容设计",
-            imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=bridal+makeup+elegant+look&sign=51682d943e37120d2e340894ce3c3bd6"
-          },
-          {
-            id: 2,
-            title: "婚礼晚宴妆容",
-            imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=wedding+dinner+makeup+glamorous&sign=f4f84bcaa81a231ce9ce9cd04c0a5ed6"
-          }
-        ]
-      },
-      {
-        id: 2,
-        title: "时尚风格系列",
-        coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=fashion+magazine+makeup+editorial&sign=8db5d4410e95c3ccac313f2468eee9b4",
-        images: [
-          {
-            id: 3,
-            title: "哥特风格妆容",
-            imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=gothic+makeup+dark+romantic&sign=cd93ae6d89b596b839b5d8a967e5e01c"
-          },
-          {
-            id: 4,
-            title: "时尚杂志妆容",
-            imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=fashion+magazine+makeup+editorial&sign=8db5d4410e95c3ccac313f2468eee9b4"
-          }
-        ]
-      },
-      {
-        id: 3,
-        title: "日常妆容系列",
-        coverImage: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=natural+everyday+makeup&sign=4c8b226f84dfc65a3e01c1ee6ddbb3b8",
-        images: [
-          {
-            id: 5,
-            title: "自然日常妆",
-            imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=natural+everyday+makeup&sign=4c8b226f84dfc65a3e01c1ee6ddbb3b8"
-          },
-          {
-            id: 6,
-            title: "户外写真妆容",
-            imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=outdoor+portrait+makeup+natural+light&sign=8955014a9750e98a426bc63dbcb8ca03"
-          },
-          {
-            id: 7,
-            title: "舞台特效妆",
-            imageUrl: "https://space.coze.cn/api/coze_space/gen_image?image_size=square&prompt=stage+special+effects+makeup&sign=4be391750779d121bdac26ce7bc5b3c9"
-          }
-        ]
-      }
-    ]
+  // 生成所有图片的列表（用于"全部作品"筛选）
+  const getAllImages = () => {
+    return portfolioAlbums.reduce((allImages, album) => {
+      return [...allImages, ...album.images.map(image => ({
+        ...image,
+        albumTitle: album.title
+      }))];
+    }, []);
   };
+
   return (
     <div className="relative z-10 min-h-screen">
-      {/* Header with name and title */}
-      <header className="py-16 bg-gray-900/60 backdrop-blur-md border-b border-gray-800">
-        <div className="container mx-auto px-4 text-center">
-           <div className="flex items-center justify-center gap-4">
-             <img 
-               src="https://lf-code-agent.coze.cn/obj/x-ai-cn/254607720450/attachment/1756025753_hd_20250824220457.png" 
-               alt="周佳豫头像" 
-               className="w-20 h-20 rounded-full border-2 border-blue-500 shadow-lg object-cover"
-             />
-             <motion.h1
-               initial={{ opacity: 0, y: -20 }}
-               animate={{ opacity: 1, y: 0 }}
-               transition={{ duration: 0.8 }}
-               className="text-4xl md:text-5xl font-bold text-white mb-2"
-             >
-               {personalInfo.name}
-             </motion.h1>
-           </div>
-          <motion.p
-            initial={{ opacity: 0, y: -20 }}
+      {/* 页面标题区域 */}
+      <header className="py-20 md:py-32 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-transparent z-0"></div>
+        
+        {/* 装饰性几何元素 */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-500 rounded-full filter blur-3xl opacity-20 animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500 rounded-full filter blur-3xl opacity-20 animate-pulse" style={{animationDelay: '1s'}}></div>
+        
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <motion.h1
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-xl text-gray-300"
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 tracking-tight"
           >
-            {personalInfo.title}
-          </motion.p>
+            作品集展示
+          </motion.h1>
           
-          {/* Contact information */}
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="mt-6 flex flex-wrap justify-center gap-4 md:gap-8 text-gray-400"
+            transition={{ duration: 1, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto"
           >
-            <div className="flex items-center">
-              <i className="fa-solid fa-envelope text-blue-400 mr-2"></i>
-              <span>{personalInfo.email}</span>
-            </div>
-            <div className="flex items-center">
-              <i className="fa-solid fa-phone text-blue-400 mr-2"></i>
-              <span>{personalInfo.phone}</span>
-            </div>
-            <div className="flex items-center">
-              <i className="fa-solid fa-map-marker-alt text-blue-400 mr-2"></i>
-              <span>{personalInfo.location}</span>
-            </div>
-          </motion.div>
+            探索我的化妆艺术作品，每一个妆容都是独特故事的视觉表达
+          </motion.p>
         </div>
       </header>
       
-      {/* Navigation */}
-      <Navbar />
-      
-      {/* Main content */}
-      <main className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Left column */}
-          <div className="lg:col-span-1 space-y-8">
-            {/* About section */}
-            <div id="about">
-              <SectionCard title="个人简介">
-                <p className="text-gray-300 leading-relaxed">
-                  {personalInfo.statement}
-                </p>
-              </SectionCard>
-            </div>
-            
-            {/* Skills section */}
-            <div id="skills">
-               <SectionCard title="技能栈">
-                <div className="h-80 w-full">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="80%" data={personalInfo.skills}>
-                      <PolarGrid stroke="#444" />
-                      <PolarAngleAxis 
-                        dataKey="name" 
-                        tick={{ fill: '#bbb', fontSize: 12 }} 
-                        tickLine={false}
-                        axisLine={{ stroke: '#555' }}
-                      />
-                      <PolarRadiusAxis 
-                        angle={30} 
-                        domain={[0, 5]} 
-                        tick={false} 
-                        grid={{ stroke: '#555' }}
-                        axisLine={false}
-                      />
-                      <Radar
-                        name="技能水平"
-                        dataKey="level"
-                        stroke="#6366f1"
-                        fill="#6366f1"
-                        fillOpacity={0.6}
-                        animationDuration={1500}
-                      />
-                    </RadarChart>
-                  </ResponsiveContainer>
-                </div>
-              </SectionCard>
-            </div>
-            
-            {/* Interests section */}
-            <div id="interests">
-              <SectionCard title="兴趣爱好">
-                <div className="grid grid-cols-1 gap-4">
-                  {personalInfo.interests.map((interest, index) => (
-                    <div key={index} className="flex items-center">
-                      <div className="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center mr-3 text-blue-400">
-                        <i className={`fa-solid fa-${interest.icon}`}></i>
-                      </div>
-                      <span className="text-gray-300">{interest.name}</span>
-                    </div>
-                  ))}
-                </div>
-              </SectionCard>
-            </div>
-          </div>
-          
-          {/* Right column */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Education section */}
-            <div id="education">
-              <SectionCard title="教育背景">
-                <div className="bg-gray-800/50 rounded-lg p-5 border border-gray-700">
-                  <h3 className="text-xl font-semibold text-white mb-1">{personalInfo.education[0].school}</h3>
-                  <p className="text-gray-300 mb-1">{personalInfo.education[0].major} ({personalInfo.education[0].degree})</p>
-                  <p className="text-gray-400 text-sm">{personalInfo.education[0].period}</p>
-                </div>
-              </SectionCard>
-            </div>
-            
-            {/* Experience section */}
-            <div id="experience">
-              <SectionCard title="工作经历">
-                <div className="space-y-4">
-                  {personalInfo.experience.map((exp, index) => (
-                    <WorkExperience key={index} experience={exp} />
-                  ))}
-                </div>
-              </SectionCard>
-            </div>
-            
-            {/* Projects section */}
-            <div id="projects">
-              <SectionCard title="个人项目">
-                <div className="space-y-4">
-                   {personalInfo.projects.map((project, index) => (
-                    <ProjectCard key={index} project={project} />
-                  ))}
-                </div>
-                    
-                     {/* Portfolio with albums */}
-                     <div className="mt-8">
-                       <div className="flex items-center justify-between mb-6">
-                         <h3 className="text-2xl font-semibold text-white">作品展示</h3>
-                         {!showAlbums && (
-                           <button 
-                             onClick={handleBackToAlbums}
-                             className="flex items-center text-blue-400 hover:text-blue-300 transition-colors"
-                           >
-                             <i className="fa-solid fa-arrow-left mr-2"></i>
-                             <span>返回相册集</span>
-                           </button>
-                         )}
-                       </div>
-                       
-                       {/* Album view */}
-                       {showAlbums ? (
-                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                           {personalInfo.portfolioAlbums.map((album) => (
-                             <motion.div
-                               key={album.id}
-                               initial={{ opacity: 0, y: 20 }}
-                               animate={{ opacity: 1, y: 0 }}
-                               transition={{ duration: 0.5 }}
-                               className="group relative rounded-xl overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-300 cursor-pointer shadow-lg hover:shadow-blue-900/20"
-                               onClick={() => handleAlbumClick(album)}
-                             >
-                                 <div className="h-48 w-full overflow-hidden">
-                                  <img 
-                                    src={album.coverImage} 
-                                    alt={album.title} 
-                                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                                  />
-                                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/60 to-transparent opacity-80"></div>
-                                </div>
-                               <div className="absolute bottom-0 left-0 p-6 w-full">
-                                 <h4 className="text-2xl font-bold text-white mb-2">{album.title}</h4>
-                                 <p className="text-gray-300 mb-4">{album.images.length} 个作品</p>
-                                 <div className="transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                                   <div className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-lg inline-flex items-center">
-                                     <span>查看作品</span>
-                                     <i className="fa-solid fa-arrow-right ml-2"></i>
-                                   </div>
-                                 </div>
-                               </div>
-                             </motion.div>
-                           ))}
-                         </div>
-                       ) : (
-                         // Images view for selected album
-                         <div>
-                           <h4 className="text-xl font-semibold text-gray-300 mb-4">{selectedAlbum.title}</h4>
-                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-                             {selectedAlbum.images.map((item) => (
-                               <div 
-                                 key={item.id} 
-                                 className="group relative rounded-lg overflow-hidden border border-gray-700 hover:border-blue-500 transition-all duration-300 cursor-pointer"
-                                 onClick={() => handleImageClick(item)}
-                               >
-                                 <img 
-                                   src={item.imageUrl} 
-                                   alt={item.title} 
-                                     className="w-full h-24 object-cover transform group-hover:scale-110 transition-transform duration-500"
-                                 />
-                                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end">
-                                   <div className="p-4 w-full">
-                                     <h3 className="text-white font-medium">{item.title}</h3>
-                                     <div className="mt-1 text-xs text-gray-300 flex items-center">
-                                       <i className="fa-solid fa-search-plus mr-1"></i> 点击查看大图
-                                     </div>
-                                   </div>
-                                 </div>
-                               </div>
-                             ))}
-                           </div>
-                         </div>
-                       )}
-                     </div>
-                     
-                     {/* Image modal */}
-                     <AnimatePresence>
-                       {isModalOpen && selectedImage && (
-                         <motion.div
-                           initial={{ opacity: 0 }}
-                           animate={{ opacity: 1 }}
-                           exit={{ opacity: 0 }}
-                           className="fixed inset-0 z-50 bg-black bg-opacity-90 flex items-center justify-center p-4"
-                           onClick={closeModal}
-                         >
-                           <motion.div
-                             initial={{ scale: 0.9, opacity: 0 }}
-                             animate={{ scale: 1, opacity: 1 }}
-                             exit={{ scale: 0.9, opacity: 0 }}
-                             transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                             className="relative max-w-4xl max-h-[90vh]"
-                             onClick={(e) => e.stopPropagation()}
-                           >
-                             <button 
-                               onClick={closeModal}
-                               className="absolute -top-12 right-0 text-white text-2xl hover:text-blue-400 transition-colors"
-                             >
-                               <i className="fa-solid fa-times"></i>
-                             </button>
-                             <h3 className="text-white text-xl font-medium mb-2 text-center">{selectedImage.title}</h3>
-                             <img 
-                               src={selectedImage.imageUrl} 
-                               alt={selectedImage.title} 
-                               className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
-                             />
-                           </motion.div>
-                         </motion.div>
-                       )}
-                     </AnimatePresence>
-              </SectionCard>
+      {/* 主内容区域 */}
+      <main className="container mx-auto px-4 py-12 md:py-20">
+        {/* 相册视图 */}
+        {showAlbums ? (
+          <div className="space-y-12">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-semibold text-white mb-4">作品集系列</h2>
+                <p className="text-gray-400 max-w-2xl mx-auto">按风格分类的妆容作品集，点击查看各系列详细内容</p>
              </div>
-          </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {portfolioAlbums.map((album, index) => (
+                <AlbumCard 
+                  key={album.id} 
+                  album={album} 
+                  onSelect={handleAlbumClick} 
+                  delay={index * 0.1}
+                />
+              ))}
+            </div>
+            
 
-        </div>
+          </div>
+        ) : (
+          // 图片列表视图
+          <div className="space-y-8">
+            {/* 返回按钮和标题 */}
+            <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
+              <button 
+                onClick={handleBackToAlbums}
+                className="flex items-center text-blue-400 hover:text-blue-300 transition-colors mb-4 md:mb-0"
+              >
+                <i className="fa-solid fa-arrow-left mr-2 text-lg"></i>
+                <span className="text-lg">返回作品集系列</span>
+              </button>
+              
+              <h2 className="text-3xl font-semibold text-white">
+                {selectedAlbum.title}
+              </h2>
+            </div>
+            
+            {/* 图片网格 */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 md:gap-6">
+              {selectedAlbum.images.map((item) => (
+                <PortfolioImageCard 
+                  key={item.id} 
+                  image={item} 
+                  onSelect={handleImageClick}
+                />
+              ))}
+            </div>
+          </div>
+        )}
       </main>
       
-      {/* Footer */}
-      <footer className="py-8 bg-gray-900/60 backdrop-blur-md border-t border-gray-800 mt-16">
-        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">© {new Date().getFullYear()} {personalInfo.name} - 前端开发工程师简历</div>
+      {/* 页脚 */}
+      <footer className="py-12 bg-gray-900/60 backdrop-blur-md border-t border-gray-800 mt-24">
+        <div className="container mx-auto px-4 text-center text-gray-400 text-sm">
+          © {new Date().getFullYear()} 周佳豫 - 化妆师作品集
+        </div>
       </footer>
+      
+      {/* 图片查看模态框 */}
+      <AnimatePresence>
+        {isModalOpen && selectedImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black bg-opacity-95 flex items-center justify-center p-4"
+            onClick={closeModal}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="relative max-w-5xl max-h-[90vh] w-full"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* 关闭按钮 */}
+              <button 
+                onClick={closeModal}
+                className="absolute -top-16 right-0 text-white text-2xl hover:text-blue-400 transition-colors z-10"
+              >
+                <i className="fa-solid fa-times"></i>
+              </button>
+              
+              {/* 图片标题 */}
+              <h3 className="text-white text-xl font-medium mb-4 text-center">
+                {selectedImage.title}
+                {selectedImage.albumTitle && (
+                  <span className="block text-gray-400 text-sm mt-1">
+                    {selectedImage.albumTitle}
+                  </span>
+                )}
+              </h3>
+              
+              {/* 图片容器 */}
+              <div className="relative bg-gray-900 rounded-lg p-1 shadow-2xl">
+                <img 
+                  src={selectedImage.imageUrl} 
+                  alt={selectedImage.title} 
+                  className="max-w-full max-h-[80vh] object-contain rounded"
+                />
+                
+                {/* 加载动画（模拟） */}
+                <div className="absolute inset-0 bg-gray-900 flex items-center justify-center opacity-0 pointer-events-none">
+                  <i className="fa-solid fa-spinner fa-spin text-3xl text-white"></i>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
