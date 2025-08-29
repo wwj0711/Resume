@@ -31,7 +31,14 @@ const AlbumCard = ({ album, onSelect }) => {
       </div>
       
       <div className="absolute bottom-0 left-0 p-6 w-full">
-
+        <motion.h3 
+          initial={{ y: 10, opacity: 0 }}
+          animate={isInView ? { y: 0, opacity: 1 } : {}}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          className="text-white text-xl font-semibold mb-2"
+        >
+          {album.title}
+        </motion.h3>
         
         <motion.p 
           initial={{ y: 10, opacity: 0 }}
@@ -78,6 +85,7 @@ const PortfolioImageCard = ({ image, onSelect }) => {
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/90 via-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end">
           <div className="p-4 w-full transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
             <h3 className="text-white font-medium text-lg">{image.title}</h3>
+            <p className="text-xs text-gray-400 mt-1">{image.albumTitle}</p>
             <div className="mt-1 text-xs text-gray-300 flex items-center">
               <i className="fa-solid fa-search-plus mr-1"></i> 点击查看大图
             </div>
